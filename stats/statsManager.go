@@ -1,9 +1,9 @@
 package stats
 
 import (
-	"github.com/janusz-chludzinski/aura-vita/types/flat"
+	"github.com/janusz-chludzinski/aura-vita/models"
 )
 
-func Monitor5Floor(flat []Flat) {
-
+func Monitor5Floor(flat []models.Flat) {
+	//flats := append(flat, models.Flat{})
 }

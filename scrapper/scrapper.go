@@ -1,13 +1,13 @@
 package scrapper
 
 import (
+	"github.com/PuerkitoBio/goquery"
+	"github.com/janusz-chludzinski/aura-vita/models"
 	"log"
 	"net/http"
-
-	"github.com/PuerkitoBio/goquery"
 )
 
-func GetFlats(url string) []Flat {
+func GetFlats(url string) []models.Flat {
 	doc, err := getHtml(url)
 
 	if err != nil {
@@ -32,24 +32,24 @@ func getHtml(url string) (*goquery.Document, error) {
 	return goquery.NewDocumentFromReader(res.Body)
 }
 
-func getFlats(doc *goquery.Document) []Flat {
-	flats := make([]Flat, 0)
+func getFlats(doc *goquery.Document) []models.Flat {
+	flats := make([]models.Flat, 0)
 
 	log.Print("Collecting flats...")
 	doc.Find(".unit").Each(func(i int, s *goquery.Selection) {
-		flat := &Flat{}
+		flat := &models.Flat{}
 		s.ChildrenFiltered("td").Each(func(i int, s *goquery.Selection) {
 			value, _ := s.Attr("class")
 
 			switch value {
 			case "field-building":
-				flat.building = s.Text()
+				flat.Building = s.Text()
 			case "title":
-				flat.flatNumber = s.Text()
+				flat.FlatNumber = s.Text()
 			case "field-surface":
-				flat.surface = s.Text()
+				flat.Surface = s.Text()
 			case "field-availability":
-				flat.status = s.Text()
+				flat.Status = s.Text()
 			default:
 				log.Printf("No match found for %v, ignoring...", value)
 			}
