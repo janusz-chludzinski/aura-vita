@@ -5,5 +5,4 @@ import (
 )
 
 func Monitor5Floor(flat []models.Flat) {
-	//flats := append(flat, models.Flat{})
 }

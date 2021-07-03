@@ -40,7 +40,6 @@ func getFlats(doc *goquery.Document) []models.Flat {
 		flat := &models.Flat{}
 		s.ChildrenFiltered("td").Each(func(i int, s *goquery.Selection) {
 			value, _ := s.Attr("class")
-
 			switch value {
 			case "field-building":
 				flat.Building = s.Text()
@@ -53,8 +52,8 @@ func getFlats(doc *goquery.Document) []models.Flat {
 			default:
 				log.Printf("No match found for %v, ignoring...", value)
 			}
-			flats = append(flats, *flat)
 		})
+		flats = append(flats, *flat)
 	})
 	log.Printf("%v flats found!", len(flats))
 	return flats
