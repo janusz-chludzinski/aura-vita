@@ -5,11 +5,12 @@ type Flat struct {
 	FlatNumber string
 	Surface    string
 	Status     string
+	Floor      string
 }
 
 type MailData struct {
-	FlatsNotSold int
-	FlatsAvailable int
-	FlatsReserved int
+	FlatsNotSold     int
+	FlatsAvailable   int
+	FlatsReserved    int
 	AreAllNeighbours bool
 }

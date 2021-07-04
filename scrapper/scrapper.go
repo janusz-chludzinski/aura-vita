@@ -49,6 +49,8 @@ func getFlats(doc *goquery.Document) []models.Flat {
 				flat.Surface = s.Text()
 			case "field-availability":
 				flat.Status = s.Text()
+			case "field-floor":
+				flat.Floor = s.Text()
 			default:
 				log.Printf("No match found for %v, ignoring...", value)
 			}
