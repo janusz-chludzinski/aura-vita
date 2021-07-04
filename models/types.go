@@ -6,3 +6,10 @@ type Flat struct {
 	Surface    string
 	Status     string
 }
+
+type MailData struct {
+	FlatsNotSold int
+	FlatsAvailable int
+	FlatsReserved int
+	AreAllNeighbours bool
+}
