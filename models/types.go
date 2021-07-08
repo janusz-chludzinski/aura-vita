@@ -13,4 +13,6 @@ type MailData struct {
 	FlatsAvailable   int
 	FlatsReserved    int
 	AreAllNeighbours bool
+	GalleriesCount	 int
 }
+

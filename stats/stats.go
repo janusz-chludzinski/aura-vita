@@ -10,13 +10,9 @@ import (
 const statusReserved = "rezerwacja"
 const statusAvailable = "dostępny"
 
-func GetStats(flats []models.Flat) *models.MailData {
+func GetStats(flats []models.Flat, data *models.MailData) *models.MailData {
 	var wg sync.WaitGroup
 	wg.Add(3)
-
-	data := &models.MailData{
-		FlatsNotSold: len(flats),
-	}
 
 	go count(flats, statusReserved, data, &wg)
 	go count(flats, statusAvailable, data, &wg)

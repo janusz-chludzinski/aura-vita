@@ -9,20 +9,31 @@ import (
 
 func GetFlats(url string) []models.Flat {
 	doc, err := getHtml(url)
-
 	if err != nil {
 		log.Fatalf("Error while reading response: %v", err)
 	}
+
 	return getFlats(doc)
+}
+
+func GetPicsCount(url string) int {
+	doc, err := getHtml(url)
+	if err != nil {
+		log.Fatalf("Error while reading response: %v", err)
+	}
+
+	return getPicsCount(doc)
+}
+
+func getPicsCount(doc *goquery.Document) int {
+	return doc.Find(".gallery").Length()
 }
 
 func getHtml(url string) (*goquery.Document, error) {
 	res, err := http.Get(url)
-
 	if err != nil {
 		log.Fatalf("Error while getting %v", url)
 	}
-
 	defer res.Body.Close()
 
 	if res.StatusCode != 200 {
