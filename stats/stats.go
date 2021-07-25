@@ -10,7 +10,7 @@ import (
 const statusReserved = "rezerwacja"
 const statusAvailable = "dostępny"
 
-func GetStats(flats []models.Flat, data *models.MailData) *models.MailData {
+func GetStats(flats []models.Flat, data *models.ParseData) *models.ParseData {
 	var wg sync.WaitGroup
 	wg.Add(3)
 
@@ -22,7 +22,7 @@ func GetStats(flats []models.Flat, data *models.MailData) *models.MailData {
 	return data
 }
 
-func is5thFloorFull(flats []models.Flat, data *models.MailData, wg *sync.WaitGroup) {
+func is5thFloorFull(flats []models.Flat, data *models.ParseData, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	for _, flat := range flats {
@@ -32,7 +32,7 @@ func is5thFloorFull(flats []models.Flat, data *models.MailData, wg *sync.WaitGro
 	}
 }
 
-func count(flats []models.Flat, status string, data *models.MailData, wg *sync.WaitGroup) {
+func count(flats []models.Flat, status string, data *models.ParseData, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	counter := 0
@@ -44,7 +44,7 @@ func count(flats []models.Flat, status string, data *models.MailData, wg *sync.W
 	setData(data, status, counter)
 }
 
-func setData(data *models.MailData, status string, counter int) {
+func setData(data *models.ParseData, status string, counter int) {
 	switch status {
 	case statusReserved:
 		data.FlatsReserved = counter

@@ -32,7 +32,7 @@ func (MailConfig) NewConfig() *MailConfig {
 	}
 }
 
-func SendMail(template string, data *models.MailData, auth smtp.Auth, config *MailConfig) error {
+func SendMail(template string, data *models.ParseData, auth smtp.Auth, config *MailConfig) error {
 	emailBody, err := parseTemplate(template, data)
 	if err != nil {
 		return err
@@ -40,7 +40,7 @@ func SendMail(template string, data *models.MailData, auth smtp.Auth, config *Ma
 	return sendMail(config, auth, emailBody)
 }
 
-func parseTemplate(path string, data *models.MailData) (string, error) {
+func parseTemplate(path string, data *models.ParseData) (string, error) {
 	log.Printf("Parsing template %v", path)
 	html, err := template.ParseFiles(path)
 	if err != nil {

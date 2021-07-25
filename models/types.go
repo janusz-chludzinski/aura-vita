@@ -1,5 +1,9 @@
 package models
 
+import (
+	"time"
+)
+
 type Flat struct {
 	Building   string
 	FlatNumber string
@@ -8,11 +12,15 @@ type Flat struct {
 	Floor      string
 }
 
-type MailData struct {
+type ParseData struct {
 	FlatsNotSold     int
 	FlatsAvailable   int
 	FlatsReserved    int
 	AreAllNeighbours bool
-	GalleriesCount	 int
+	GalleriesCount   int
 }
 
+type DbEntry struct {
+	ParseData *ParseData
+	Date      time.Time
+}
