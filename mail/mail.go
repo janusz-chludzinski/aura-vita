@@ -41,17 +41,17 @@ func SendMail(template string, data *models.ParseData, auth smtp.Auth, config *C
 }
 
 func parseTemplate(path string, data *models.ParseData) (string, error) {
-	log.Printf("Parsing template %v", path)
+	log.Printf("[INFO] Parsing template %v", path)
 	html, err := template.ParseFiles(path)
 	if err != nil {
-		log.Printf("Error: could not process template from path %v", path)
+		log.Printf("[ERROR] could not process template from path %v", path)
 	}
 
 	buffer := new(bytes.Buffer)
 	if err = html.Execute(buffer, data); err != nil {
 		return "", err
 	}
-	log.Printf("Template parsed!")
+	log.Printf("[INFO] Template parsed!")
 	return buffer.String(), nil
 }
 
@@ -64,7 +64,7 @@ func getMessage(config *Config, body string) []byte {
 }
 
 func sendMail(config *Config, auth smtp.Auth, emailBody string) error {
-	log.Print("Sending email...")
+	log.Print("[INFO] Sending email...")
 	err := smtp.SendMail(
 		getAddress(config),
 		auth,
@@ -74,6 +74,6 @@ func sendMail(config *Config, auth smtp.Auth, emailBody string) error {
 	if err != nil {
 		return err
 	}
-	log.Print("Email sent!")
+	log.Print("[INFO] Email sent!")
 	return nil
 }
