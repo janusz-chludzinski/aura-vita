@@ -23,6 +23,7 @@ const templatePath = "mail/template/email.html"
 const dbName = "aura-vita"
 
 func main() {
+	log.SetOutput(os.Stdout)
 	log.Println("[INFO] Starting task...")
 
 	flats, count := scrappData(flatsUrl, picsUrl)
