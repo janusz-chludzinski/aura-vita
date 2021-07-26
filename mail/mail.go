@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-type MailConfig struct {
+type Config struct {
 	Host     string
 	From     string
 	Password string
@@ -20,8 +20,8 @@ type MailConfig struct {
 	Receiver []string
 }
 
-func (MailConfig) NewConfig() *MailConfig {
-	return &MailConfig{
+func (Config) NewConfig() *Config {
+	return &Config{
 		Host:     "smtp.gmail.com",
 		From:     "elperro.gianni@gmail.com",
 		Password: os.Getenv("GMAIL_PASS"),
@@ -32,7 +32,7 @@ func (MailConfig) NewConfig() *MailConfig {
 	}
 }
 
-func SendMail(template string, data *models.ParseData, auth smtp.Auth, config *MailConfig) error {
+func SendMail(template string, data *models.ParseData, auth smtp.Auth, config *Config) error {
 	emailBody, err := parseTemplate(template, data)
 	if err != nil {
 		return err
@@ -55,15 +55,15 @@ func parseTemplate(path string, data *models.ParseData) (string, error) {
 	return buffer.String(), nil
 }
 
-func getAddress(config *MailConfig) string {
+func getAddress(config *Config) string {
 	return fmt.Sprintf("%s:%s", config.Host, config.Port)
 }
 
-func getMessage(config *MailConfig, body string) []byte {
+func getMessage(config *Config, body string) []byte {
 	return []byte(config.Subject + config.Mime + "\n" + body)
 }
 
-func sendMail(config *MailConfig, auth smtp.Auth, emailBody string) error {
+func sendMail(config *Config, auth smtp.Auth, emailBody string) error {
 	log.Print("Sending email...")
 	err := smtp.SendMail(
 		getAddress(config),

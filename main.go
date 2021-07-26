@@ -17,7 +17,6 @@ const flatsUrl = "https://www.auravita.pl/mieszkania"
 const picsUrl = "https://www.auravita.pl/galeria"
 const templatePath = "mail/template/email.html"
 const dbName = "aura-vita"
-const connectionString = "mongodb://admin:Start123@localhost:27017/aura-vita"
 
 func main() {
 	log.Println("[INFO] Starting task...")
@@ -25,12 +24,12 @@ func main() {
 	flats, count := scrappData(flatsUrl, picsUrl)
 	data := getParseData(flats, count)
 	_ = storeParseData(data)
-	sendEmailNotification(data, mail.MailConfig{}.NewConfig())
+	sendEmailNotification(data, mail.Config{}.NewConfig())
 
 	log.Println("[INFO] Task finished!")
 }
 
-func getAuth(config *mail.MailConfig) smtp.Auth {
+func getAuth(config *mail.Config) smtp.Auth {
 	return smtp.PlainAuth("", config.From, config.Password, config.Host)
 }
 
@@ -53,7 +52,13 @@ func getParseData(flats []models.Flat, count int) *models.ParseData {
 
 func storeParseData(data *models.ParseData) *InsertOneResult {
 	ctx := getContext()
-	client, err := db.GetConnectedClient(connectionString, ctx)
+	connStr, err := db.ConnectionString()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	client, err := db.GetConnectedClient(connStr, ctx)
 	if err != nil {
 		log.Println(err)
 	}
@@ -71,7 +76,7 @@ func storeParseData(data *models.ParseData) *InsertOneResult {
 	return savedEntry
 }
 
-func sendEmailNotification(data *models.ParseData, config *mail.MailConfig) {
+func sendEmailNotification(data *models.ParseData, config *mail.Config) {
 	if err := mail.SendMail(templatePath, data, getAuth(config), config); err != nil {
 		log.Printf("[ERROR]: could not send email. Reason: %v", err)
 	}
