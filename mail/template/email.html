@@ -5,6 +5,8 @@
     <style>
       body {
         background-color: #007d9c;
+        display: flex;
+        align-content: center;
       }
 
       #content-wrap {
@@ -12,18 +14,41 @@
         background-color: #fff;
         width: 30%;
         padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+      }
+
+      #content-wrap img {
+        width: 30%;
+        display: block;
+        margin: 0 auto;
+      }
+
+      h1, h3 {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        color: #007d9c;
+        font-weight: 100;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        font-weight: 600;
       }
 
       h3 {
-        padding: 0;
-        margin: 0;
+        padding: 10px;
+        background-color: #007d9c;
+        color: #fff;
       }
     </style>
 </head>
 <body>
   <div id="content-wrap">
-    <img src="" alt="Gopher Logo" />
-
+    <img src="https://github.com/janusz-chludzinski/aura-vita/blob/main/mail/template/gopher.png?raw=true" alt="Gopher Logo" />
+    <h1>Aura-Vita Notification</h1>
     <h3>Ogolne</h3>
     <ul>
       <li>
