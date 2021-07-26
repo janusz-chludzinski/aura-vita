@@ -23,7 +23,6 @@ const templatePath = "mail/template/email.html"
 const dbName = "aura-vita"
 
 func main() {
-	log.SetOutput(os.Stdout)
 	log.Println("[INFO] Starting task...")
 
 	flats, count := scrappData(flatsUrl, picsUrl)
@@ -107,7 +106,8 @@ func storeParseData(data *models.ParseData) *InsertOneResult {
 }
 
 func sendEmailNotification(data *models.ParseData, config *mail.Config) {
-	if err := mail.SendMail(templatePath, data, getAuth(config), config); err != nil {
+	wd, _ := os.Getwd()
+	if err := mail.SendMail(fmt.Sprintf("%v/%v", wd, templatePath), data, getAuth(config), config); err != nil {
 		log.Printf("[ERROR]: could not send email. Reason: %v", err)
 	}
 }
