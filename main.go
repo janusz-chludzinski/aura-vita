@@ -19,7 +19,7 @@ import (
 
 const flatsUrl = "https://www.auravita.pl/mieszkania"
 const picsUrl = "https://www.auravita.pl/galeria"
-const templatePath = "mail/template/email.html"
+const templatePath = "aura-vita/aura-vita/mail/template/email.html"
 const dbName = "aura-vita"
 
 func main() {
