@@ -2,12 +2,15 @@ package main
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"github.com/janusz-chludzinski/aura-vita/db"
 	"github.com/janusz-chludzinski/aura-vita/mail"
 	"github.com/janusz-chludzinski/aura-vita/models"
 	"github.com/janusz-chludzinski/aura-vita/scrapper"
 	"github.com/janusz-chludzinski/aura-vita/stats"
 	. "go.mongodb.org/mongo-driver/mongo"
+	"io/ioutil"
 	"log"
 	"net/smtp"
 	"time"
@@ -23,8 +26,9 @@ func main() {
 
 	flats, count := scrappData(flatsUrl, picsUrl)
 	data := getParseData(flats, count)
-	_ = storeParseData(data)
-	sendEmailNotification(data, mail.Config{}.NewConfig())
+	parseDataToJsonFile(data)
+	//_ = storeParseData(data)
+	//sendEmailNotification(data, mail.Config{}.NewConfig())
 
 	log.Println("[INFO] Task finished!")
 }
@@ -48,6 +52,31 @@ func getParseData(flats []models.Flat, count int) *models.ParseData {
 	data.GalleriesCount = count
 	stats.GetStats(flats, data)
 	return data
+}
+
+func parseDataToJsonFile(data *models.ParseData) {
+	currentTime := time.Now()
+	parse := currentTime.Format(time.RFC3339Nano)
+
+	entry := models.DbEntry{
+		ParseData: data,
+		Date:      currentTime,
+	}
+
+	entryJson, err := json.Marshal(entry)
+	if err != nil {
+		log.Fatal("[ERROR] Could not marshal data.")
+	}
+
+	fileName := fmt.Sprintf("/Users/gianni/Documents/%v_parseEntry", parse)
+
+	err = ioutil.WriteFile(fileName, entryJson, 0644)
+	if err != nil {
+		log.Printf("[ERROR] Could not store json entry: %v", err)
+	}
+
+	log.Printf("[INFO] Successfuly stored data: %s to file %v", entryJson, fileName)
+
 }
 
 func storeParseData(data *models.ParseData) *InsertOneResult {
