@@ -27,8 +27,8 @@ func (Config) NewConfig() *Config {
 		Password: os.Getenv("GMAIL_PASS"),
 		Port:     "587",
 		Mime:     "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n",
-		Subject:  "Subject: " + "Test Email" + "!\n",
-		Receiver: []string{"chludzinski.janusz@gmail.com"},
+		Subject:  "Subject: " + "Aura-Vita status update!",
+		Receiver: []string{"chludzinski.janusz@gmail.com", "marta.chludzinska@yahoo.com"},
 	}
 }
 
