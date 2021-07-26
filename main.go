@@ -28,7 +28,7 @@ func main() {
 	data := getParseData(flats, count)
 	parseDataToJsonFile(data)
 	//_ = storeParseData(data)
-	//sendEmailNotification(data, mail.Config{}.NewConfig())
+	sendEmailNotification(data, mail.Config{}.NewConfig())
 
 	log.Println("[INFO] Task finished!")
 }
@@ -56,7 +56,6 @@ func getParseData(flats []models.Flat, count int) *models.ParseData {
 
 func parseDataToJsonFile(data *models.ParseData) {
 	currentTime := time.Now()
-	parse := currentTime.Format(time.RFC3339Nano)
 
 	entry := models.DbEntry{
 		ParseData: data,
@@ -68,7 +67,7 @@ func parseDataToJsonFile(data *models.ParseData) {
 		log.Fatal("[ERROR] Could not marshal data.")
 	}
 
-	fileName := fmt.Sprintf("/Users/gianni/Documents/%v_parseEntry", parse)
+	fileName := fmt.Sprintf("/home/pi/aura-vita/%v_parseEntry", currentTime.Format(time.RFC3339Nano))
 
 	err = ioutil.WriteFile(fileName, entryJson, 0644)
 	if err != nil {
