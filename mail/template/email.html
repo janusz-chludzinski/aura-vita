@@ -1,77 +1,96 @@
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-      body {
-        background-color: #007d9c;
-        display: flex;
-        align-content: center;
-      }
+  <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+      <link href="https://fonts.googleapis.com/css?family=Work+Sans:600|Roboto:400,700" rel="stylesheet">
+      <style>
+        table, th, tr, td, tbody {
+          border-collapse: collapse;
+        }
 
-      #content-wrap {
-        box-sizing: border-box;
-        background-color: #fff;
-        width: 30%;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-      }
+        th, td, tr {
+          padding: 10px;
+          font: 1rem Roboto, sans-serif;
+          font-weight: 400;
+        }
 
-      #content-wrap img {
-        width: 30%;
-        display: block;
-        margin: 0 auto;
-      }
+        h1, h3 {
+          padding: 0;
+          margin: 0;
+          text-align: center;
+          color: #007d9c;
+          font-weight: 700;
+        }
 
-      h1, h3 {
-        padding: 0;
-        margin: 0;
-        text-align: center;
-        color: #007d9c;
-        font-weight: 100;
-      }
+        h1 {
+          margin-bottom: 20px;
+          font: 1.5rem 'Work Sans', sans-serif;
+        }
 
-      h1 {
-        margin-bottom: 20px;
-        font-weight: 600;
-      }
+        h3 {
+          padding: 10px;
+          background-color: #7fd5ea;
+          color: #007d9c;
+          font: 1rem 'Work Sans', sans-serif;
+        }
+      </style>
+  </head>
+  <body style="background-color: #7fd5ea;">
+    <table style="background-color: #ffffff; margin: 20px auto; border-radius: 5px; width: 480px;">
+      <thead>
+        <tr>
+          <th colspan="2">
+            <img
+                    style="width: 100px; height: 100px; border: 3px solid #7fd5ea; border-radius: 50%"
+                    src="https://github.com/janusz-chludzinski/aura-vita/blob/main/mail/template/gopher.png?raw=true" alt="Gopher Logo" />
+          </th>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <h1>Aura-Vita Notification</h1>
+          </td>
+        </tr>
+      </thead>
 
-      h3 {
-        padding: 10px;
-        background-color: #007d9c;
-        color: #fff;
-      }
-    </style>
-</head>
-<body>
-  <div id="content-wrap">
-    <img src="https://github.com/janusz-chludzinski/aura-vita/blob/main/mail/template/gopher.png?raw=true" alt="Gopher Logo" />
-    <h1>Aura-Vita Notification</h1>
-    <h3>Ogolne</h3>
-    <ul>
-      <li>
-        <p>Liczba mieszkan</p>
-        <p>{{.FlatsNotSold}}</p>
-      </li>
-      <li>
-        <p>Liczba dostepnych</p>
-        <p>{{.FlatsAvailable}}</p>
-      </li>
-      <li>
-        <p>Liczba zarezerwowanych</p>
-        <p>{{.FlatsReserved}}</p>
-      </li>
-    </ul>
+      <tbody style=" padding-bottom: 40px">
+        <tr>
+          <td colspan="2">
+            <h3>Ogólne</h3>
+          </td>
+        </tr>
+        <tr>
+          <td>Liczba mieszkań</td>
+          <td>{{.FlatsNotSold}}</td>
+        </tr>
+        <tr>
+          <td>Liczba dostępnych</td>
+          <td>{{.FlatsAvailable}}</td>
+        </tr>
+        <tr>
+          <td>Liczba zarezerwowanych</td>
+          <td>{{.FlatsReserved}}</td>
+        </tr>
 
-    <h3>5 pietro</h3>
-    <p>Czy wszystko obok nas sprzedane?</p>
-    <p>{{.AreAllNeighbours}}</p>
+        <tr>
+          <td colspan="2">
+            <h3>5 pietro</h3>
+          </td>
+        </tr>
+        <tr>
+          <td>Czy wszystko obok nas sprzedane?</td>
+          <td>{{.AreAllNeighbours}}</td>
+        </tr>
 
-    <h3>Galeria</h3>
-    <p>Liczba galerii</p>
-    <p>{{.GalleriesCount}}</p>
-  </div>
-</body>
+        <tr>
+          <td colspan="2">
+            <h3>Galeria</h3>
+          </td>
+        </tr>
+        <tr>
+          <td>Liczba galerii</td>
+          <td>{{.GalleriesCount}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>
