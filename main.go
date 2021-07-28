@@ -107,8 +107,9 @@ func storeParseData(data *models.ParseData) *InsertOneResult {
 }
 
 func sendEmailNotification(data *models.ParseData, config *mail.Config) {
-	//wd, _ := os.Getwd()
-	if err := mail.SendMail(/*fmt.Sprintf("%v/%v", wd, templatePath)*/"mail/template/email.html", data, getAuth(config), config); err != nil {
+	wd, _ := os.Getwd()
+	absoluteTemplatePath := fmt.Sprintf("%v/%v", wd, templatePath)
+	if err := mail.SendMail(absoluteTemplatePath, data, getAuth(config), config); err != nil {
 		log.Printf("[ERROR]: could not send email. Reason: %v", err)
 	}
 }
