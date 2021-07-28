@@ -19,7 +19,7 @@ import (
 
 const flatsUrl = "https://www.auravita.pl/mieszkania"
 const picsUrl = "https://www.auravita.pl/galeria"
-const templatePath = "aura-vita/aura-vita/mail/template/email.html"
+const templatePath = "/home/pi/aura-vita/aura-vita/mail/template/email.html"
 const dbName = "aura-vita"
 
 func main() {
@@ -107,9 +107,7 @@ func storeParseData(data *models.ParseData) *InsertOneResult {
 }
 
 func sendEmailNotification(data *models.ParseData, config *mail.Config) {
-	wd, _ := os.Getwd()
-	absoluteTemplatePath := fmt.Sprintf("%v/%v", wd, templatePath)
-	if err := mail.SendMail(absoluteTemplatePath, data, getAuth(config), config); err != nil {
+	if err := mail.SendMail(templatePath, data, getAuth(config), config); err != nil {
 		log.Printf("[ERROR]: could not send email. Reason: %v", err)
 	}
 }
